@@ -83,6 +83,20 @@ class TrashMail:
 
         return r.json()
 
+    def get_list(self, filter=None):
+        """
+        Fetches the Lists you want
+        :param filter: Filter : OPTIONAL || None, private, public, whitelisted
+        :return:
+        """
 
+        if filter is not None:
+            params = self.get_params_filter(filter)
+        else:
+            params = {}
+
+        r = requests.get(self.base.format(endpoint="trashmail/list"), params=params, headers=self.header)
+
+        return r.json()
 
 
