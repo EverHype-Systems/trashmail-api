@@ -17,6 +17,18 @@ class TrashMail:
             "Accept": 'application/json'
         }
 
+    @staticmethod
+    def get_params_filter(filter):
+        """
+        Returns the params for get requests
+        :param filter:
+        :return:
+        """
+
+        return {
+            "status": filter
+        }
+
     def check_mail(self, email, md5=False):
         """
         Function to check the provided mail
@@ -37,4 +49,30 @@ class TrashMail:
         r = requests.get(self.base.format(endpoint="check"), params=params, headers=self.header)
 
         return r.json()
+
+    def add_mails(self, items=[], status="private", regular=True):
+        """
+        Adds e-mail hosts to the trashmail database
+        PLEASE NOTE: AS A REGULAR USER, YOU CANNOT SET ANY STATUS
+        :param regular: Change to False, if you have higher ranking
+        :param items: array of all mails
+        :param status: YOU CAN CHOOSE BETWEEN: whitelisted, public, private !! OPTIONAL
+        :return:
+        """
+
+        if regular:
+            params = {
+                "items": items
+            }
+        else:
+            params = {
+                "items": items,
+                "status": status
+            }
+
+        r = requests.post(self.base.format(endpoint="trashmail/add"), params=params, headers=self.header)
+
+        return r.json()
+
+
 
