@@ -99,4 +99,13 @@ class TrashMail:
 
         return r.json()
 
+    def get_count(self):
+        """
+        Fetches current statistics for trashmail-api.de
+        :return:
+        """
+        r = requests.get(self.base.format(endpoint="trashmail/count"), headers=self.header)
+
+        return r.json()
+
 
