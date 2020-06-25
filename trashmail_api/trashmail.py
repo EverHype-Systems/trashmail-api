@@ -108,4 +108,18 @@ class TrashMail:
 
         return r.json()
 
+    def change_account_settings(self, logging=True, anonymize=True):
+        """
+        Changes your account settings regarding anonymizing and requests logging
+        :param logging: set to True or False
+        :param anonymize: set to True or False
+        :return:
+        """
+
+        r = requests.post(self.base.format(endpoint="me"), params={
+            "logging": logging,
+            "anonymize": anonymize
+        }, headers=self.header)
+
+        return r.json()
 
