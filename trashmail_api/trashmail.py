@@ -74,5 +74,15 @@ class TrashMail:
 
         return r.json()
 
+    def me(self):
+        """
+        Fetches all information regarding your account on trashmail-api.de
+        :return:
+        """
+        r = requests.get(self.base.format(endpoint="me"), headers=self.header)
+
+        return r.json()
+
+
 
 
